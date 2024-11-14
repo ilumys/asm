@@ -8,7 +8,6 @@ _start:
     mov rdi, 19 # length of string
     lea rsi, l_hi # load address of string into rsi
     call fn_print
-    mov rax, 0 # prepare to exit
     mov rdi, 0 # set exit code
     jmp fn_exit
 
@@ -26,6 +25,7 @@ fn_print:
 
 # does what it says
 # prefer to set exit code where you have context
+# not that I am conditionally setting it here, but practice
 fn_exit:
     mov rax, 60
     syscall
