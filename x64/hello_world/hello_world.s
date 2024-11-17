@@ -1,4 +1,12 @@
+# ---------------------------------------
 # hello world in x64 assembly
+#
+# arch: amd64, linux
+# build: clang -Wall -g -c hello_world.s -o build/main.o
+# link: ld.lld -o build/main build/main.o
+# ---------------------------------------
+
+.intel_syntax
 
 # entry point
 .global _start
