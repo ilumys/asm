@@ -5,6 +5,11 @@
 # counts from 1 to n, printing 'fizz' if the number is divisible by three,
 # 'buzz' if the number is divisible by five, and 'fizzbuzz' if the number
 # is divisible by both three and five
+#
+# todo:
+# convert string to integer for argv[1] comparable
+# convert integer to string for printing numbers
+#
 # ----------------------------
 
 .intel_syntax
@@ -14,14 +19,22 @@
 
 # registers consumed:
 # r10: argc
-# r8: argv
+# r8: argv[1]
 # r9: counter
+
+l_fizz:
+    .ascii "fizz\n"
+l_buzz:
+    .ascii "buzz\n"
+l_fizzbuzz:
+    .ascii "fizzbuzz\n"
 
 _start:
     pop r10 # argc
     cmp r10, 2
     jne _exit # if argc != 2, exit
-    mov r8, qword ptr [rsp + 8] # copy argv[1], where displacement = 8 bytes
+    mov r8, [rsp + 8] # copy argv[1], where displacement = 8 bytes
+    mov r8, 24
 
     # prep gpr's for div
     mov r11, 3
@@ -36,7 +49,7 @@ _start:
 
 # iterate from 1 to argv[1]
 _iter:
-    cmp r9, r8
+    cmp r9, r8 # this fails! comparing string to int, no good
     je _exit
     xor rax, rax
     xor rdx, rdx
@@ -51,7 +64,7 @@ _fizz:
     cmp rdx, 0
     jz _fizzbuzz # if also evenly divisible by 5
     lea rsi, l_fizz
-    mov rdi, 6
+    mov rdx, 6
     jmp _print
 
 _buzz:
@@ -62,17 +75,17 @@ _buzz:
     cmp rdx, 0
     jnz _num # if neither evenly divisible by 3 or 5
     lea rsi, l_buzz
-    mov rdi, 6
+    mov rdx, 6
     jmp _print
 
 _fizzbuzz:
     lea rsi, l_fizzbuzz
-    mov rdi, 10
+    mov rdx, 10
     jmp _print
 
 _num:
     mov rsi, r9
-    mov rdi, 2
+    mov rdx, 2
 
 _print:
     mov rax, 1 # write
@@ -85,10 +98,3 @@ _exit:
     mov rax, 60
     mov rdi, 0
     syscall
-
-l_fizz:
-    .ascii "fizz\n"
-l_buzz:
-    .ascii "buzz\n"
-l_fizzbuzz:
-    .ascii "fizzbuzz\n"
