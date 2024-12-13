@@ -39,4 +39,4 @@ fn_exit:
     syscall
 
 l_hi:
-    .ascii "Hello, from world!\n"
+    .asciz "Hello, from world!\n"

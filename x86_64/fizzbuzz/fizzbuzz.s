@@ -23,11 +23,11 @@
 # r9: counter
 
 l_fizz:
-    .ascii "fizz\n"
+    .asciz "fizz\n"
 l_buzz:
-    .ascii "buzz\n"
+    .asciz "buzz\n"
 l_fizzbuzz:
-    .ascii "fizzbuzz\n"
+    .asciz "fizzbuzz\n"
 
 _start:
     pop r10 # argc
