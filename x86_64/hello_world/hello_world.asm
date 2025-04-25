@@ -10,7 +10,7 @@ section .text
 _start:
         mov rax, 0x1  ; syscall=write
         mov rdi, 0x1  ; fd=stdout
-        mov rsi, msg  ; buffer
+        lea rsi, msg  ; buffer
         mov rdx, 6    ; num bytes
         syscall
 

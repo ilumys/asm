@@ -16,3 +16,5 @@ Link: `ld.lld -o build/main build/main.o`
 
 Files ending `.asm` have been written for NASM and can be built and executed with:
 `nasm -f elf64 {file.asm} && ld.lld {file.o} && ./a.out`
+
+If debugging, add `-F dwarf` to nasm call
